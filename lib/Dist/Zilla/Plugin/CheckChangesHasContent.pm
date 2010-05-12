@@ -11,7 +11,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Plugin::CheckChangesHasContent;
 BEGIN {
-  $Dist::Zilla::Plugin::CheckChangesHasContent::VERSION = '0.001';
+  $Dist::Zilla::Plugin::CheckChangesHasContent::VERSION = '0.002';
 }
 # ABSTRACT: Ensure Changes has content before releasing
 
@@ -92,7 +92,7 @@ Dist::Zilla::Plugin::CheckChangesHasContent - Ensure Changes has content before 
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 
