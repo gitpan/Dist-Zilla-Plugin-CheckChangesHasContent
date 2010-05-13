@@ -11,7 +11,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Plugin::CheckChangesHasContent;
 BEGIN {
-  $Dist::Zilla::Plugin::CheckChangesHasContent::VERSION = '0.002';
+  $Dist::Zilla::Plugin::CheckChangesHasContent::VERSION = '0.003';
 }
 # ABSTRACT: Ensure Changes has content before releasing
 
@@ -68,7 +68,7 @@ sub _get_changes {
     my $changelog = Dist::Zilla::File::OnDisk->new( { name => $self->changelog } );
     my $newver    = $self->zilla->version;
     my @content   =
-        grep { /^$newver\s+/ ... /^\S/ } # from newver to un-indented
+        grep { /^$newver(?:\s+|$)/ ... /^\S/ } # from newver to un-indented
         split /\n/, $changelog->content;
     shift @content; # drop the version line
     # drop unindented last line and trailing blank lines
@@ -92,7 +92,7 @@ Dist::Zilla::Plugin::CheckChangesHasContent - Ensure Changes has content before 
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 

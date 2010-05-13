@@ -26,7 +26,7 @@ no_index:
 provides:
   Dist::Zilla::Plugin::CheckChangesHasContent:
     file: lib/Dist/Zilla/Plugin/CheckChangesHasContent.pm
-    version: 0.002
+    version: 0.003
 recommends: {}
 requires:
   Dist::Zilla: 2.100950
@@ -38,4 +38,4 @@ requires:
   perl: 5.006
 resources:
   repository: http://github.com/dagolden/dist-zilla-plugin-checkchangeshascontent
-version: 0.002
+version: 0.003
