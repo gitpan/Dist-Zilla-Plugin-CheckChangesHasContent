@@ -1,13 +1,4 @@
 #!perl
-# 
-# This file is part of Dist-Zilla-Plugin-CheckChangesHasContent
-# 
-# This software is Copyright (c) 2010 by David Golden.
-# 
-# This is free software, licensed under:
-# 
-#   The Apache License, Version 2.0, January 2004
-# 
 
 use strict;
 use warnings;
@@ -17,13 +8,15 @@ use Dist::Zilla::Tester;
 use Test::More 0.88; END { done_testing }
 use Try::Tiny;
 
+my $root = 'corpus/DZ_CheckChangesHasContent';
+
 ## Tests start here
 
 {
   my $tzil;
   try {
     $tzil = Dist::Zilla::Tester->from_config(
-      { dist_root => 'corpus/DZ' },
+      { dist_root => $root },
     );
     ok( $tzil, "created test dist with no Changes file");
 
@@ -46,7 +39,7 @@ use Try::Tiny;
   my $tzil;
   try {
     $tzil = Dist::Zilla::Tester->from_config(
-      { dist_root => 'corpus/DZ' },
+      { dist_root => $root },
       {
         add_files => {
           'source/Changes' => <<'END',
@@ -79,7 +72,7 @@ END
   my $tzil;
   try {
     $tzil = Dist::Zilla::Tester->from_config(
-      { dist_root => 'corpus/DZ' },
+      { dist_root => $root },
       {
         add_files => {
           'source/Changes' => <<'END',
@@ -117,7 +110,7 @@ END
   my $tzil;
   try {
     $tzil = Dist::Zilla::Tester->from_config(
-      { dist_root => 'corpus/DZ' },
+      { dist_root => $root },
       {
         add_files => {
           'source/Changes' => <<'END',
@@ -156,7 +149,7 @@ END
   my $tzil;
   try {
     $tzil = Dist::Zilla::Tester->from_config(
-      { dist_root => 'corpus/DZ' },
+      { dist_root => $root },
       {
         add_files => {
           'source/Changes' => <<'END',

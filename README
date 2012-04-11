@@ -3,7 +3,7 @@ NAME
     before releasing
 
 VERSION
-    version 0.003
+    version 0.004
 
 SYNOPSIS
        # in dist.ini
@@ -14,6 +14,9 @@ DESCRIPTION
     This is a "before release" Dist::Zilla plugin that ensures that your
     Changes file actually has some content since the last release. If it
     doesn't find any, it will abort the release process.
+
+    This can be contrasted to Dist::Zilla::Plugin::Test::ChangesHasContent,
+    which generates a test to perform the check.
 
     The algorithm is very naive. It looks for an unindented line starting
     with the version to be released. It then looks for any text from that
@@ -42,13 +45,32 @@ DESCRIPTION
        changelog = ChangeLog
 
 SEE ALSO
+    *   Dist::Zilla::Plugin::Test::ChangesHasContent
+
     *   Dist::Zilla
 
-AUTHOR
-      David Golden <dagolden@cpan.org>
+SUPPORT
+  Bugs / Feature Requests
+    Please report any bugs or feature requests through the issue tracker at
+    <http://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-Chec
+    kChangesHasContent>. You will be notified automatically of any progress
+    on your issue.
+
+  Source Code
+    This is open source software. The code repository is available for
+    public review and contribution under the terms of the license.
+
+    <https://github.com/dagolden/dist-zilla-plugin-checkchangeshascontent>
+
+      git clone https://github.com/dagolden/dist-zilla-plugin-checkchangeshascontent.git
+
+AUTHORS
+    *   David Golden <dagolden@cpan.org>
+
+    *   Karen Etheridge <ether@cpan.org>
 
 COPYRIGHT AND LICENSE
-    This software is Copyright (c) 2010 by David Golden.
+    This software is Copyright (c) 2012 by David Golden.
 
     This is free software, licensed under:
 

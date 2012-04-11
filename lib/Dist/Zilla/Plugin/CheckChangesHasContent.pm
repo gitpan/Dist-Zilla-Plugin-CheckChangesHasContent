@@ -1,19 +1,8 @@
-# 
-# This file is part of Dist-Zilla-Plugin-CheckChangesHasContent
-# 
-# This software is Copyright (c) 2010 by David Golden.
-# 
-# This is free software, licensed under:
-# 
-#   The Apache License, Version 2.0, January 2004
-# 
 use strict;
 use warnings;
 package Dist::Zilla::Plugin::CheckChangesHasContent;
-BEGIN {
-  $Dist::Zilla::Plugin::CheckChangesHasContent::VERSION = '0.003';
-}
 # ABSTRACT: Ensure Changes has content before releasing
+our $VERSION = '0.004'; # VERSION
 
 # Dependencies
 use Dist::Zilla 2.100950 (); # XXX really the next release after this date
@@ -92,7 +81,7 @@ Dist::Zilla::Plugin::CheckChangesHasContent - Ensure Changes has content before 
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 
@@ -105,6 +94,9 @@ version 0.003
 This is a "before release" Dist::Zilla plugin that ensures that your Changes
 file actually has some content since the last release.  If it doesn't find any,
 it will abort the release process.
+
+This can be contrasted to L<Dist::Zilla::Plugin::Test::ChangesHasContent>, which
+generates a test to perform the check.
 
 The algorithm is very naive.  It looks for an unindented line starting with
 the version to be released.  It then looks for any text from that line until
@@ -139,17 +131,50 @@ the name with the C<<< changelog >>> argument:
 
 =item *
 
+L<Dist::Zilla::Plugin::Test::ChangesHasContent>
+
+=item *
+
 L<Dist::Zilla>
 
 =back
 
-=head1 AUTHOR
+=for :stopwords cpan testmatrix url annocpan anno bugtracker rt cpants kwalitee diff irc mailto metadata placeholders metacpan
 
-  David Golden <dagolden@cpan.org>
+=head1 SUPPORT
+
+=head2 Bugs / Feature Requests
+
+Please report any bugs or feature requests through the issue tracker
+at L<http://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-CheckChangesHasContent>.
+You will be notified automatically of any progress on your issue.
+
+=head2 Source Code
+
+This is open source software.  The code repository is available for
+public review and contribution under the terms of the license.
+
+L<https://github.com/dagolden/dist-zilla-plugin-checkchangeshascontent>
+
+  git clone https://github.com/dagolden/dist-zilla-plugin-checkchangeshascontent.git
+
+=head1 AUTHORS
+
+=over 4
+
+=item *
+
+David Golden <dagolden@cpan.org>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2010 by David Golden.
+This software is Copyright (c) 2012 by David Golden.
 
 This is free software, licensed under:
 
