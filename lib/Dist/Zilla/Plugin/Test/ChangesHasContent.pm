@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Plugin::Test::ChangesHasContent;
 # ABSTRACT: Release test to ensure Changes has content
-our $VERSION = '0.004'; # VERSION
+our $VERSION = '0.005'; # VERSION
 
 # Dependencies
 use Dist::Zilla;
@@ -55,7 +55,7 @@ Dist::Zilla::Plugin::Test::ChangesHasContent - Release test to ensure Changes ha
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 SYNOPSIS
 

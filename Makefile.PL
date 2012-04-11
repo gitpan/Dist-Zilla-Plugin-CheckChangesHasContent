@@ -17,7 +17,6 @@ my %WriteMakefileArgs = (
     "Dist::Zilla::Tester" => 0,
     "File::Find" => 0,
     "File::Temp" => 0,
-    "IO::Scalar" => 0,
     "Path::Class" => 0,
     "Test::Harness" => 0,
     "Test::More" => "0.88",
@@ -42,7 +41,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.004",
+  "VERSION" => "0.005",
   "test" => {
     "TESTS" => "t/*.t"
   }
