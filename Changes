@@ -1,5 +1,12 @@
 Revision history for Dist-Zilla-Plugin-CheckChangesHasContent
 
+0.006     2012-07-28 06:51:35 America/New_York
+
+    [BUGFIX]
+
+    - Correctly detect versions with '-TRIAL' appended
+      [Randy Stauner]
+
 0.005     2012-04-11 14:08:40 America/New_York
 
     [BUGFIX]

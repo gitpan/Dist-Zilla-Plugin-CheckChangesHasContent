@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Plugin::Test::ChangesHasContent;
 # ABSTRACT: Release test to ensure Changes has content
-our $VERSION = '0.005'; # VERSION
+our $VERSION = '0.006'; # VERSION
 
 # Dependencies
 use Dist::Zilla;
@@ -21,6 +21,12 @@ has changelog => (
   default => 'Changes'
 );
 
+has trial_token => (
+  is => 'ro',
+  isa => 'Str',
+  default => '-TRIAL'
+);
+
 # methods
 
 around add_file => sub {
@@ -31,6 +37,7 @@ around add_file => sub {
             content => $self->fill_in_string($file->content,
                 {
                     changelog => $self->changelog,
+                    trial_token => $self->trial_token,
                     newver => $self->zilla->version
                 }
             )
@@ -55,7 +62,7 @@ Dist::Zilla::Plugin::Test::ChangesHasContent - Release test to ensure Changes ha
 
 =head1 VERSION
 
-version 0.005
+version 0.006
 
 =head1 SYNOPSIS
 
@@ -156,6 +163,7 @@ use Test::More tests => 2;
 note 'Checking Changes';
 my $changes_file = '{{$changelog}}';
 my $newver = '{{$newver}}';
+my $trial_token = '{{$trial_token}}';
 
 SKIP: {
     ok(-e $changes_file, "$changes_file file exists")
@@ -178,7 +186,7 @@ sub _get_changes
     close $fh;
 
     my @content =
-        grep { /^$newver(?:\s+|$)/ ... /^\S/ } # from newver to un-indented
+        grep { /^$newver(?:$trial_token)?(?:\s+|$)/ ... /^\S/ } # from newver to un-indented
         split /\n/, $changelog;
     shift @content; # drop the version line
 
