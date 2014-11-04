@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::Plugin::CheckChangesHasContent;
 # ABSTRACT: Ensure Changes has content before releasing
-our $VERSION = '0.006'; # VERSION
+our $VERSION = '0.007';
 
 # Dependencies
 use Dist::Zilla 2.100950 (); # XXX really the next release after this date
@@ -78,9 +78,11 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 
-
+__END__
 
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -88,13 +90,13 @@ Dist::Zilla::Plugin::CheckChangesHasContent - Ensure Changes has content before 
 
 =head1 VERSION
 
-version 0.006
+version 0.007
 
 =head1 SYNOPSIS
 
-   # in dist.ini
- 
-   [CheckChangesHasContent]
+  # in dist.ini
+
+  [CheckChangesHasContent]
 
 =head1 DESCRIPTION
 
@@ -111,40 +113,31 @@ the next unindented line (or the end of the file), ignoring whitespace.
 
 For example, in the file below, algorithm will find "- blah blah blah":
 
-   Changes file for Foo-Bar
- 
-   {{$NEXT}}
- 
-     - blah blah blah
- 
-   0.001  Wed May 12 13:49:13 EDT 2010
- 
-     - the first release
+  Changes file for Foo-Bar
 
-If you had nothing but whitespace between C<<<  {{$NEXT}}  >>> and C<<<  0.001  >>>,
+  {{$NEXT}}
+
+    - blah blah blah
+
+  0.001  Wed May 12 13:49:13 EDT 2010
+
+    - the first release
+
+If you had nothing but whitespace between C<{{$NEXT}}> and C<0.001>,
 the release would be halted.
 
 If you name your change log something other than "Changes", you can configure
-the name with the C<<< changelog >>> argument:
+the name with the C<changelog> argument:
 
-   [CheckChangesHasContent]
-   changelog = ChangeLog
+  [CheckChangesHasContent]
+  changelog = ChangeLog
 
 =for Pod::Coverage before_release
 
 =head1 SEE ALSO
 
-=over
-
-=item *
-
-L<Dist::Zilla::Plugin::Test::ChangesHasContent>
-
-=item *
-
-L<Dist::Zilla>
-
-=back
+* L<Dist::Zilla::Plugin::Test::ChangesHasContent>
+* L<Dist::Zilla>
 
 =for :stopwords cpan testmatrix url annocpan anno bugtracker rt cpants kwalitee diff irc mailto metadata placeholders metacpan
 
@@ -153,7 +146,7 @@ L<Dist::Zilla>
 =head2 Bugs / Feature Requests
 
 Please report any bugs or feature requests through the issue tracker
-at L<http://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-CheckChangesHasContent>.
+at L<https://github.com/dagolden/Dist-Zilla-Plugin-CheckChangesHasContent/issues>.
 You will be notified automatically of any progress on your issue.
 
 =head2 Source Code
@@ -161,9 +154,9 @@ You will be notified automatically of any progress on your issue.
 This is open source software.  The code repository is available for
 public review and contribution under the terms of the license.
 
-L<https://github.com/dagolden/dist-zilla-plugin-checkchangeshascontent>
+L<https://github.com/dagolden/Dist-Zilla-Plugin-CheckChangesHasContent>
 
-  git clone https://github.com/dagolden/dist-zilla-plugin-checkchangeshascontent.git
+  git clone https://github.com/dagolden/Dist-Zilla-Plugin-CheckChangesHasContent.git
 
 =head1 AUTHORS
 
@@ -179,17 +172,18 @@ Karen Etheridge <ether@cpan.org>
 
 =back
 
+=head1 CONTRIBUTOR
+
+=for stopwords Randy Stauner
+
+Randy Stauner <randy@magnificent-tears.com>
+
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2012 by David Golden.
+This software is Copyright (c) 2014 by David Golden.
 
 This is free software, licensed under:
 
   The Apache License, Version 2.0, January 2004
 
 =cut
-
-
-__END__
-
-

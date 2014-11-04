@@ -4,23 +4,25 @@ author:
   - 'David Golden <dagolden@cpan.org>'
   - 'Karen Etheridge <ether@cpan.org>'
 build_requires:
-  Capture::Tiny: 0
-  Cwd: 0
-  Dist::Zilla::Tester: 0
-  File::Find: 0
-  File::Temp: 0
-  Path::Class: 0
-  Test::Harness: 0
-  Test::More: 0.88
-  Try::Tiny: 0
+  Capture::Tiny: '0'
+  Cwd: '0'
+  Dist::Zilla::Tester: '0'
+  ExtUtils::MakeMaker: '0'
+  File::Spec: '0'
+  Path::Tiny: '0'
+  Test::Harness: '0'
+  Test::More: '0.88'
+  Try::Tiny: '0'
+  perl: '5.006'
 configure_requires:
-  ExtUtils::MakeMaker: 6.30
+  ExtUtils::MakeMaker: '6.17'
+  perl: '5.006'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300018, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Dist::Zilla version 5.023, CPAN::Meta::Converter version 2.142690'
 license: apache
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: Dist-Zilla-Plugin-CheckChangesHasContent
 no_index:
   directory:
@@ -33,24 +35,32 @@ no_index:
 provides:
   Dist::Zilla::Plugin::CheckChangesHasContent:
     file: lib/Dist/Zilla/Plugin/CheckChangesHasContent.pm
-    version: 0.006
+    version: '0.007'
   Dist::Zilla::Plugin::Test::ChangesHasContent:
     file: lib/Dist/Zilla/Plugin/Test/ChangesHasContent.pm
-    version: 0.006
+    version: '0.007'
 requires:
-  Dist::Zilla: 2.100950
-  Dist::Zilla::Plugin::InlineFiles: 0
-  Dist::Zilla::Role::BeforeRelease: 0
-  Dist::Zilla::Role::TextTemplate: 0
-  File::pushd: 0
-  Moose: 0.99
-  autodie: 2.00
-  namespace::autoclean: 0.09
-  perl: 5.006
-  strict: 0
-  warnings: 0
+  Data::Section: '0.200002'
+  Dist::Zilla: '2.100950'
+  Dist::Zilla::File::InMemory: '0'
+  Dist::Zilla::Role::BeforeRelease: '0'
+  Dist::Zilla::Role::FileGatherer: '0'
+  Dist::Zilla::Role::FileMunger: '0'
+  Dist::Zilla::Role::TextTemplate: '0'
+  File::pushd: '0'
+  Moose: '0.99'
+  Moose::Util::TypeConstraints: '0'
+  Sub::Exporter::ForMethods: '0'
+  autodie: '2.00'
+  namespace::autoclean: '0.09'
+  perl: '5.006'
+  strict: '0'
+  warnings: '0'
 resources:
-  bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-CheckChangesHasContent
-  homepage: https://github.com/dagolden/dist-zilla-plugin-checkchangeshascontent
-  repository: https://github.com/dagolden/dist-zilla-plugin-checkchangeshascontent.git
-version: 0.006
+  bugtracker: https://github.com/dagolden/Dist-Zilla-Plugin-CheckChangesHasContent/issues
+  homepage: https://github.com/dagolden/Dist-Zilla-Plugin-CheckChangesHasContent
+  repository: https://github.com/dagolden/Dist-Zilla-Plugin-CheckChangesHasContent.git
+version: '0.007'
+x_authority: cpan:DAGOLDEN
+x_contributors:
+  - 'Randy Stauner <randy@magnificent-tears.com>'

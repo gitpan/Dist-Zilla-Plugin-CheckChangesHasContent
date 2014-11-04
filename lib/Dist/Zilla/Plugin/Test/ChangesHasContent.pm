@@ -2,18 +2,25 @@ use strict;
 use warnings;
 package Dist::Zilla::Plugin::Test::ChangesHasContent;
 # ABSTRACT: Release test to ensure Changes has content
-our $VERSION = '0.006'; # VERSION
+our $VERSION = '0.007';
 
 # Dependencies
 use Dist::Zilla;
 use autodie 2.00;
 use Moose 0.99;
+use Sub::Exporter::ForMethods;
+use Data::Section 0.200002 # encoding and bytes
+  { installer => Sub::Exporter::ForMethods::method_installer },
+  '-setup' => { encoding => 'bytes' };
+use Moose::Util::TypeConstraints 'role_type';
 use namespace::autoclean 0.09;
 
 # extends, roles, attributes, etc.
 
-extends 'Dist::Zilla::Plugin::InlineFiles';
-with qw/Dist::Zilla::Role::TextTemplate/;
+with qw/Dist::Zilla::Role::FileGatherer
+    Dist::Zilla::Role::FileMunger
+    Dist::Zilla::Role::TextTemplate
+    /;
 
 has changelog => (
   is => 'ro',
@@ -27,23 +34,51 @@ has trial_token => (
   default => '-TRIAL'
 );
 
+has _file => (
+    is => 'rw', isa => role_type('Dist::Zilla::Role::File'),
+);
+
 # methods
 
-around add_file => sub {
-    my ($orig, $self, $file) = @_;
-    return $self->$orig(
-        Dist::Zilla::File::InMemory->new(
-            name    => $file->name,
-            content => $self->fill_in_string($file->content,
-                {
-                    changelog => $self->changelog,
-                    trial_token => $self->trial_token,
-                    newver => $self->zilla->version
-                }
-            )
+sub gather_files
+{
+    my $self = shift;
+
+    my $data = $self->merged_section_data;
+    return unless $data and %$data;
+
+    my ($name, $contentref) = %$data;
+
+    require Dist::Zilla::File::InMemory;
+
+    $self->add_file( $self->_file(
+        Dist::Zilla::File::InMemory->new({
+            name    => $name,
+            content => $$contentref,
+        }))
+    );
+
+    return;
+}
+
+sub munge_files
+{
+    my $self = shift;
+    my $file = $self->_file;
+
+    $file->content(
+        $self->fill_in_string(
+            $file->content,
+            {
+                changelog => $self->changelog,
+                trial_token => $self->trial_token,
+                newver => $self->zilla->version
+            }
         )
     );
-};
+
+    return;
+}
 
 __PACKAGE__->meta->make_immutable;
 
@@ -51,10 +86,61 @@ __PACKAGE__->meta->make_immutable;
 
 # Pod must be before DATA
 
-
-
+#pod =for Pod::Coverage gather_files munge_files
+#pod
+#pod =head1 SYNOPSIS
+#pod
+#pod   # in dist.ini
+#pod
+#pod   [Test::ChangesHasContent]
+#pod
+#pod =head1 DESCRIPTION
+#pod
+#pod This plugin provides C<xt/release/changes_has_content.t>.
+#pod
+#pod This test ensures ensures that your Changes file actually has some content
+#pod since the last release.
+#pod
+#pod This can be contrasted to L<Dist::Zilla::Plugin::CheckChangesHasContent>, which
+#pod performs the check at release time, halting the release process if content is
+#pod missing.  Performing the check as a test makes it possible to check more
+#pod frequently, and closer to the point of development.
+#pod
+#pod The algorithm is very naive.  It looks for an unindented line starting with
+#pod the version to be released.  It then looks for any text from that line until
+#pod the next unindented line (or the end of the file), ignoring whitespace.
+#pod
+#pod For example, in the file below, algorithm will find "- blah blah blah":
+#pod
+#pod   Changes file for Foo-Bar
+#pod
+#pod   {{$NEXT}}
+#pod
+#pod     - blah blah blah
+#pod
+#pod   0.001  Wed May 12 13:49:13 EDT 2010
+#pod
+#pod     - the first release
+#pod
+#pod If you had nothing but whitespace between C<{{$NEXT}}> and C<0.001>,
+#pod the release would be halted.
+#pod
+#pod If you name your change log something other than "Changes", you can configure
+#pod the name with the C<changelog> argument:
+#pod
+#pod   [Test::ChangesHasContent]
+#pod   changelog = ChangeLog
+#pod
+#pod =head1 SEE ALSO
+#pod
+#pod * L<Dist::Zilla::Plugin::CheckChangesHasContent>
+#pod * L<Dist::Zilla>
+#pod
+#pod =cut
 
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -62,25 +148,17 @@ Dist::Zilla::Plugin::Test::ChangesHasContent - Release test to ensure Changes ha
 
 =head1 VERSION
 
-version 0.006
+version 0.007
 
 =head1 SYNOPSIS
 
-   # in dist.ini
- 
-   [Test::ChangesHasContent]
+  # in dist.ini
+
+  [Test::ChangesHasContent]
 
 =head1 DESCRIPTION
 
-This is an extension of L<Dist::Zilla::Plugin::InlineFiles>, providing the following file:
-
-=over
-
-=item *
-
-xtE<sol>releaseE<sol>changes_has_content.t
-
-=back
+This plugin provides C<xt/release/changes_has_content.t>.
 
 This test ensures ensures that your Changes file actually has some content
 since the last release.
@@ -96,38 +174,31 @@ the next unindented line (or the end of the file), ignoring whitespace.
 
 For example, in the file below, algorithm will find "- blah blah blah":
 
-   Changes file for Foo-Bar
- 
-   {{$NEXT}}
- 
-     - blah blah blah
- 
-   0.001  Wed May 12 13:49:13 EDT 2010
- 
-     - the first release
+  Changes file for Foo-Bar
 
-If you had nothing but whitespace between C<<<  {{$NEXT}}  >>> and C<<<  0.001  >>>,
+  {{$NEXT}}
+
+    - blah blah blah
+
+  0.001  Wed May 12 13:49:13 EDT 2010
+
+    - the first release
+
+If you had nothing but whitespace between C<{{$NEXT}}> and C<0.001>,
 the release would be halted.
 
 If you name your change log something other than "Changes", you can configure
-the name with the C<<< changelog >>> argument:
+the name with the C<changelog> argument:
 
-   [Test::ChangesHasContent]
-   changelog = ChangeLog
+  [Test::ChangesHasContent]
+  changelog = ChangeLog
+
+=for Pod::Coverage gather_files munge_files
 
 =head1 SEE ALSO
 
-=over
-
-=item *
-
-L<Dist::Zilla::Plugin::CheckChangesHasContent>
-
-=item *
-
-L<Dist::Zilla>
-
-=back
+* L<Dist::Zilla::Plugin::CheckChangesHasContent>
+* L<Dist::Zilla>
 
 =head1 AUTHORS
 
@@ -145,14 +216,13 @@ Karen Etheridge <ether@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2012 by David Golden.
+This software is Copyright (c) 2014 by David Golden.
 
 This is free software, licensed under:
 
   The Apache License, Version 2.0, January 2004
 
 =cut
-
 
 __DATA__
 ___[ xt/release/changes_has_content.t ]___

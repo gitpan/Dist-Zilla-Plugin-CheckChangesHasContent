@@ -3,12 +3,12 @@ NAME
     before releasing
 
 VERSION
-    version 0.006
+    version 0.007
 
 SYNOPSIS
-       # in dist.ini
- 
-       [CheckChangesHasContent]
+      # in dist.ini
+
+      [CheckChangesHasContent]
 
 DESCRIPTION
     This is a "before release" Dist::Zilla plugin that ensures that your
@@ -25,15 +25,15 @@ DESCRIPTION
 
     For example, in the file below, algorithm will find "- blah blah blah":
 
-       Changes file for Foo-Bar
- 
-       {{$NEXT}}
- 
-         - blah blah blah
- 
-       0.001  Wed May 12 13:49:13 EDT 2010
- 
-         - the first release
+      Changes file for Foo-Bar
+
+      {{$NEXT}}
+
+        - blah blah blah
+
+      0.001  Wed May 12 13:49:13 EDT 2010
+
+        - the first release
 
     If you had nothing but whitespace between "{{$NEXT}}" and 0.001, the
     release would be halted.
@@ -41,36 +41,36 @@ DESCRIPTION
     If you name your change log something other than "Changes", you can
     configure the name with the "changelog" argument:
 
-       [CheckChangesHasContent]
-       changelog = ChangeLog
+      [CheckChangesHasContent]
+      changelog = ChangeLog
 
 SEE ALSO
-    *   Dist::Zilla::Plugin::Test::ChangesHasContent
-
-    *   Dist::Zilla
+    * Dist::Zilla::Plugin::Test::ChangesHasContent * Dist::Zilla
 
 SUPPORT
   Bugs / Feature Requests
     Please report any bugs or feature requests through the issue tracker at
-    <http://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-Chec
-    kChangesHasContent>. You will be notified automatically of any progress
-    on your issue.
+    <https://github.com/dagolden/Dist-Zilla-Plugin-CheckChangesHasContent/is
+    sues>. You will be notified automatically of any progress on your issue.
 
   Source Code
     This is open source software. The code repository is available for
     public review and contribution under the terms of the license.
 
-    <https://github.com/dagolden/dist-zilla-plugin-checkchangeshascontent>
+    <https://github.com/dagolden/Dist-Zilla-Plugin-CheckChangesHasContent>
 
-      git clone https://github.com/dagolden/dist-zilla-plugin-checkchangeshascontent.git
+      git clone https://github.com/dagolden/Dist-Zilla-Plugin-CheckChangesHasContent.git
 
 AUTHORS
     *   David Golden <dagolden@cpan.org>
 
     *   Karen Etheridge <ether@cpan.org>
 
+CONTRIBUTOR
+    Randy Stauner <randy@magnificent-tears.com>
+
 COPYRIGHT AND LICENSE
-    This software is Copyright (c) 2012 by David Golden.
+    This software is Copyright (c) 2014 by David Golden.
 
     This is free software, licensed under:
 

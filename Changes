@@ -1,5 +1,16 @@
 Revision history for Dist-Zilla-Plugin-CheckChangesHasContent
 
+0.007     2014-11-04 07:11:14-05:00 America/New_York
+
+    [OTHER]
+
+    - Generates test file later to give other plugins a chance
+      to generate version information
+
+    [PREREQS]
+
+    - Drops Path::Class and adds Path::Tiny
+
 0.006     2012-07-28 06:51:35 America/New_York
 
     [BUGFIX]
